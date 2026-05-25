@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Introduction Worksheet</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #18181a;
+  --ink2: #46464f;
+  --ink3: #8a8a96;
+  --ink4: #b8b8c4;
+  --bg: #fafaf8;
+  --bg2: #f2f1ed;
+  --bg3: #e8e7e1;
+  --white: #ffffff;
+  --border: rgba(0,0,0,0.09);
+  --border2: rgba(0,0,0,0.16);
+  --border3: rgba(0,0,0,0.26);
+  --green: #2d7a3a;
+  --green-lt: #e8f5eb;
+  --green-md: #6ab87a;
+  --blue: #1a5fa8;
+  --blue-lt: #e4eef9;
+  --amber: #7a4f0a;
+  --amber-lt: #fdf0d8;
+  --purple: #4a3fa8;
+  --purple-lt: #edeafb;
+  --purple-dark: #2e2680;
+  --coral: #8a2a1a;
+  --coral-lt: #fceae6;
+  --score: #b45309;
+  --score-lt: #fef3c7;
+  --score-border: #f59e0b;
+  --r: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, 'Noto Sans KR', sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg2);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+/* ── Page hero ── */
+.hero {
+  background: var(--ink);
+  color: var(--white);
+  padding: 3rem 2rem 2.5rem;
+  text-align: center;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.8);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.18);
+  margin-bottom: 1.25rem;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+.hero h1 em {
+  font-style: italic;
+  color: rgba(255,255,255,0.65);
+}
+.hero p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  margin-top: 0.5rem;
+}
+.hero-score-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+.score-pill {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.75);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.score-pill strong { color: #fbbf24; }
+
+/* ── Main layout ── */
+.page-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ── Meta strip ── */
+.meta-card {
+  background: var(--white);
+  border: 0.5px solid var(--border2);
+  border-radius: var(--r-xl);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 14px;
+  align-items: end;
+}
+.meta-field label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ink3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 5px;
+}
+.meta-field input {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid var(--border2);
+  padding: 4px 0;
+  font-size: 14px;
+  color: var(--ink);
+  font-family: var(--sans);
+  background: transparent;
+  outline: none;
+  transition: border-color .15s;
+}
+.meta-field input:focus { border-bottom-color: var(--green); }
+
+/* ── Type toggle ── */
+.type-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+.type-btn {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--r-lg);
+  background: var(--white);
+  cursor: pointer;
+  font-family: var(--sans);
+  text-align: center;
+  transition: all .15s;
+}
+.type-btn .t-en { display: block; font-size: 14px; font-weight: 600; color: var(--ink); }
+.type-btn .t-ko { display: block; font-size: 11px; color: var(--ink3); margin-top: 2px; }
+.type-btn .t-desc { display: block; font-size: 11px; color: var(--ink4); margin-top: 3px; }
+.type-btn.active { border-color: var(--green); background: var(--green-lt); }
+.type-btn.active .t-en, .type-btn.active .t-ko { color: var(--green); }
+
+/* ── Progress ── */
+.prog-bar-wrap { margin-bottom: 2rem; }
+.prog-top { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink3); margin-bottom: 6px; }
+.prog-track { height: 5px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.prog-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width .4s ease; width: 0%; }
+
+/* ── Section card ── */
+.sec-card {
+  background: var(--white);
+  border: 0.5px solid var(--border2);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.sec-hdr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 0.5px solid var(--border);
+}
+.sec-left { display: flex; align-items: center; gap: 12px; flex: 1; }
+.sec-num-wrap { position: relative; flex-shrink: 0; }
+.sec-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+}
+.sec-titles { flex: 1; }
+.sec-titles h2 { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.sec-titles .ko { font-size: 12px; color: var(--ink3); margin-top: 1px; }
+
+/* ── Score badge ── */
+.score-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--score-lt);
+  border: 1px solid var(--score-border);
+  border-radius: 8px;
+  padding: 5px 12px;
+  flex-shrink: 0;
+}
+.score-badge .pts { font-size: 18px; font-weight: 700; color: var(--score); font-family: var(--serif); line-height: 1; }
+.score-badge .pts-label { font-size: 10px; color: #92400e; line-height: 1.3; font-weight: 500; }
+.setech-tag {
+  font-size: 10px;
+  color: var(--ink3);
+  font-style: italic;
+  padding: 3px 8px;
+  background: var(--bg2);
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.sec-body { padding: 18px 20px; }
+
+/* ── Fields ── */
+.field { margin-bottom: 14px; }
+.field:last-child { margin-bottom: 0; }
+.field-lbl { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; flex-wrap: wrap; gap: 4px; }
+.field-lbl-en { font-size: 12px; font-weight: 600; color: var(--ink2); }
+.field-hint { font-size: 11px; color: var(--ink3); margin-bottom: 5px; line-height: 1.5; font-style: italic; }
+.field input[type=text], .field textarea {
+  width: 100%;
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--ink);
+  font-family: var(--sans);
+  background: var(--bg);
+  resize: vertical;
+  outline: none;
+  line-height: 1.6;
+  transition: border-color .15s, background .15s;
+}
+.field input[type=text]:focus, .field textarea:focus {
+  border-color: var(--green);
+  background: var(--white);
+}
+.field textarea { min-height: 72px; }
+.field textarea.sm { min-height: 56px; }
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* ── Hook type pills ── */
+.hook-types { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.hook-pill {
+  font-size: 11px; padding: 5px 12px;
+  border-radius: 20px;
+  background: var(--bg2); border: 1px solid var(--border2);
+  color: var(--ink3); cursor: pointer;
+  user-select: none; transition: all .12s;
+}
+.hook-pill.active { background: var(--blue-lt); border-color: #93c5fd; color: var(--blue); font-weight: 600; }
+
+/* ── Lang focus ── */
+.lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.lang-opt {
+  padding: 9px 12px; border: 1px solid var(--border2);
+  border-radius: var(--r); cursor: pointer;
+  font-size: 12px; color: var(--ink2);
+  transition: all .12s; line-height: 1.4;
+}
+.lang-opt .ko-s { font-size: 11px; color: var(--ink3); display: block; margin-top: 2px; }
+.lang-opt.on { border-color: var(--green-md); background: var(--green-lt); color: var(--green); }
+.lang-opt.on .ko-s { color: var(--green); }
+
+/* ── Section colors ── */
+.s1 .sec-num { background: var(--green-lt); color: var(--green); }
+.s2 .sec-num { background: var(--blue-lt); color: var(--blue); }
+.s3 .sec-num { background: var(--amber-lt); color: var(--amber); }
+.s4 .sec-num { background: var(--purple-lt); color: var(--purple); }
+.s5 .sec-num { background: var(--coral-lt); color: var(--coral); }
+.s6 .sec-num { background: var(--green-lt); color: var(--green); }
+
+/* ── Example box ── */
+.ex-wrap { margin-top: 14px; }
+.ex-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  background: var(--purple-lt);
+  border: 1px solid #c4b8f5;
+  border-radius: var(--r);
+  cursor: pointer; user-select: none;
+  transition: background .12s;
+}
+.ex-btn:hover { background: #ddd8fb; }
+.ex-btn-icon { font-size: 15px; }
+.ex-btn-label { font-size: 12px; font-weight: 600; color: var(--purple-dark); flex: 1; }
+.ex-btn-book { font-size: 11px; color: var(--purple); font-style: italic; }
+.ex-btn-arrow { font-size: 12px; color: var(--purple); transition: transform .2s; }
+.ex-btn.open .ex-btn-arrow { transform: rotate(180deg); }
+.ex-panel {
+  display: none;
+  margin-top: 8px;
+  border: 1px solid #c4b8f5;
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.ex-panel.open { display: block; }
+.ex-row { padding: 10px 14px; border-bottom: 1px solid #ede9fc; }
+.ex-row:last-child { border-bottom: none; }
+.ex-row.green-row { background: var(--green-lt); }
+.ex-q { font-size: 11px; color: var(--purple); font-weight: 600; margin-bottom: 4px; }
+.ex-q.green-q { color: var(--green); }
+.ex-a { font-size: 13px; color: #1e1b4b; line-height: 1.65; }
+.ex-a.green-a { color: #14532d; }
+.ex-a-ko { font-size: 12px; color: var(--purple); line-height: 1.6; margin-top: 5px; font-style: italic; }
+.ex-note { font-size: 11px; color: #7c6ee6; margin-top: 5px; padding-top: 5px; border-top: 1px dashed #ddd8fb; }
+
+/* ── Script section ── */
+.script-guide { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 12px; }
+.guide-tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; background: var(--blue-lt); color: var(--blue); font-weight: 500; }
+.req-box {
+  padding: 10px 14px; margin-bottom: 14px;
+  background: var(--score-lt); border: 1px solid var(--score-border);
+  border-radius: var(--r); font-size: 12px; color: #78350f; line-height: 1.7;
+}
+.req-box strong { color: #92400e; }
+
+.starter-panel { border: 1px solid var(--border2); border-radius: var(--r); overflow: hidden; margin-bottom: 16px; }
+.starter-hdr { padding: 10px 14px 8px; background: var(--bg2); border-bottom: 1px solid var(--border); }
+.starter-hdr .sh-title { font-size: 12px; font-weight: 600; color: var(--ink2); }
+.starter-hdr .sh-sub { font-size: 11px; color: var(--ink3); font-style: italic; margin-top: 1px; }
+.starter-tabs { display: flex; background: var(--bg2); border-bottom: 1px solid var(--border); }
+.stab {
+  flex: 1; padding: 7px 4px; font-size: 11px; font-weight: 500;
+  color: var(--ink3); background: var(--bg2); border: none;
+  cursor: pointer; font-family: var(--sans);
+  border-right: 1px solid var(--border); white-space: nowrap;
+  transition: all .12s;
+}
+.stab:last-child { border-right: none; }
+.stab.on { background: var(--white); color: var(--ink); }
+.starter-content { padding: 12px 14px; background: var(--white); }
+.tsec { display: none; }
+.tsec.on { display: block; }
+.slbl { font-size: 10px; color: var(--ink3); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 7px; margin-top: 12px; }
+.slbl:first-child { margin-top: 0; }
+.phrase-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.phrase {
+  font-size: 12px; padding: 5px 12px; border-radius: 20px;
+  background: var(--bg2); border: 1px solid var(--border2);
+  color: var(--ink2); cursor: pointer;
+  user-select: none; transition: all .12s;
+}
+.phrase:hover { background: var(--green-lt); border-color: var(--green-md); color: var(--green); }
+.phrase.flash { background: var(--green-lt); border-color: var(--green-md); color: var(--green); }
+
+/* ── Sentence counter ── */
+.sent-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.sent-lbl { font-size: 12px; color: var(--ink3); white-space: nowrap; }
+.sent-lbl.ok { color: var(--green); font-weight: 600; }
+.sent-lbl.warn { color: var(--amber); }
+.sent-track { flex: 1; height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+.sent-fill { height: 100%; background: var(--amber); border-radius: 2px; transition: width .3s, background .3s; width: 0%; }
+.sent-fill.ok { background: var(--green); }
+.sent-check { font-size: 14px; color: var(--green); min-width: 20px; text-align: right; }
+.short-warn { font-size: 11px; color: var(--coral); margin-top: 5px; display: none; }
+
+/* ── Total score strip ── */
+.total-strip {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  background: var(--ink); color: var(--white);
+  border-radius: var(--r-xl); padding: 1.25rem 2rem;
+  margin-bottom: 1.5rem;
+}
+.total-label { font-size: 13px; color: rgba(255,255,255,0.6); }
+.total-score { font-family: var(--serif); font-size: 36px; color: #fbbf24; line-height: 1; }
+.total-max { font-size: 16px; color: rgba(255,255,255,0.4); align-self: flex-end; padding-bottom: 4px; }
+.score-breakdown { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+.breakdown-pill {
+  font-size: 11px; padding: 3px 10px; border-radius: 20px;
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.breakdown-pill.done { background: rgba(251,191,36,0.15); color: #fbbf24; border-color: rgba(251,191,36,0.3); }
+
+/* ── Action bar ── */
+.action-bar { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+.btn {
+  padding: 10px 22px; border-radius: var(--r);
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; font-family: var(--sans);
+  border: 1.5px solid var(--border3);
+  background: var(--white); color: var(--ink);
+  transition: all .15s;
+}
+.btn:hover { background: var(--bg2); }
+.btn.primary { background: var(--green); border-color: var(--green); color: #fff; }
+.btn.primary:hover { background: #236130; }
+
+@media (max-width:640px) {
+  .hero { padding: 2rem 1.25rem 2rem; }
+  .page-wrap { padding: 1.25rem 1rem 3rem; }
+  .meta-card { grid-template-columns: 1fr 1fr; }
+  .g2, .lang-grid { grid-template-columns: 1fr; }
+  .type-row { flex-direction: column; }
+  .setech-tag { display: none; }
+  .sec-hdr { flex-wrap: wrap; }
+}
+@media print {
+  body { background: #fff; }
+  .hero { background: #1a1a1a; -webkit-print-color-adjust: exact; }
+  .action-bar, .starter-panel, .prog-bar-wrap, .type-row { display: none !important; }
+  .sec-card { break-inside: avoid; }
+  .ex-panel { display: block !important; }
+  .page-wrap { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">Book Speech Activity</div>
+  <h1>Book Introduction Worksheet<br><em>책 소개 활동지</em></h1>
+  <p>Prepare your book speech step by step · 단계별로 발표를 준비해요</p>
+  <div class="hero-score-strip">
+    <span class="score-pill">Sections 1–5: <strong>20pts each</strong></span>
+    <span class="score-pill">Section 6: Script</span>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- Meta -->
+  <div class="meta-card">
+    <div class="meta-field"><label>Book Title / 책 제목</label><input type="text" placeholder="Enter title"></div>
+    <div class="meta-field"><label>Author / 저자</label><input type="text" placeholder="Author name"></div>
+    <div class="meta-field"><label>Your Name / 이름</label><input type="text" placeholder="Your name"></div>
+    <div class="meta-field"><label>Date / 날짜</label><input type="text" id="meta-date" placeholder="yyyy-mm-dd"></div>
+  </div>
+
+  <!-- Type toggle -->
+  <div style="font-size:12px;color:var(--ink3);margin-bottom:8px;font-weight:600;">What kind of book? / 어떤 종류의 책인가요?</div>
+  <div class="type-row">
+    <button class="type-btn active" onclick="setType('fiction',this)">
+      <span class="t-en">📖 Fiction / Literary</span>
+      <span class="t-ko">소설 · 문학</span>
+      <span class="t-desc">등장인물, 줄거리가 있는 책</span>
+    </button>
+    <button class="type-btn" onclick="setType('nonfiction',this)">
+      <span class="t-en">📚 Non-fiction / Essay</span>
+      <span class="t-ko">비소설 · 에세이 · 정보 도서</span>
+      <span class="t-desc">사실, 주장, 정보 중심의 책</span>
+    </button>
+  </div>
+
+  <!-- Progress -->
+  <div class="prog-bar-wrap">
+    <div class="prog-top"><span>Progress / 진행도</span><span id="prog-txt">0 / 6 sections</span></div>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+  </div>
+
+  <!-- ─── SECTION 1 ─── -->
+  <div class="sec-card s1">
+    <div class="sec-hdr">
+      <div class="sec-left">
+        <div class="sec-num">1</div>
+        <div class="sec-titles"><h2>Audience &amp; Purpose</h2><div class="ko">독자 설정 &amp; 말하기 목적</div></div>
+      </div>
+      <span class="setech-tag">의사소통 맥락 형성</span>
+      <div class="score-badge">
+        <div>
+          <div class="pts">20</div>
+          <div class="pts-label">points<br>배점</div>
+        </div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="field">
+        <div class="field-lbl"><span class="field-lbl-en">My target audience / 나의 대상 청중</span></div>
+        <div class="field-hint">e.g., middle school students / people who don't like reading · 예: 중학생 / 독서를 싫어하는 사람들</div>
+        <input type="text" placeholder="Who are you speaking to?">
+      </div>
+      <div class="field">
+        <div class="field-lbl"><span class="field-lbl-en">Purpose of my speech / 발표 목적</span></div>
+        <div class="field-hint">e.g., to persuade / to recommend / to explain a theme · 설득 / 추천 / 주제 설명</div>
+        <input type="text" placeholder="What is your goal?">
+      </div>
+      <div class="field">
+        <div class="field-lbl"><span class="field-lbl-en">Why this book fits my audience / 이 책이 청중에게 적합한 이유</span></div>
+        <textarea class="sm" placeholder="Explain briefly in English. (영어로 간단히 작성)"></textarea>
+      </div>
+      <div id="ex1"></div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 2 ─── -->
+  <div class="sec-card s2">
+    <div class="sec-hdr">
+      <div class="sec-left">
+        <div class="sec-num">2</div>
+        <div class="sec-titles"><h2>One-Sentence Hook</h2><div class="ko">청중을 사로잡는 첫 한 문장</div></div>
+      </div>
+      <span class="setech-tag">도입 전략</span>
+      <div class="score-badge"><div><div class="pts">20</div><div class="pts-label">points<br>배점</div></div></div>
+    </div>
+    <div class="sec-body">
+      <div style="font-size:12px;color:var(--ink2);font-weight:600;margin-bottom:6px;">Choose a hook type / 훅 유형 선택</div>
+      <div class="hook-types">
+        <span class="hook-pill" onclick="setHook(this,'Question / 질문')">Question / 질문</span>
+        <span class="hook-pill" onclick="setHook(this,'Shocking Fact / 충격적 사실')">Shocking Fact / 충격적 사실</span>
+        <span class="hook-pill" onclick="setHook(this,'Short Quote / 짧은 인용')">Short Quote / 짧은 인용</span>
+        <span class="hook-pill" onclick="setHook(this,'Personal Connection / 개인 경험')">Personal Connection / 개인 경험</span>
+      </div>
+      <div class="field">
+        <div class="field-lbl"><span class="field-lbl-en">Hook type: <span id="hook-lbl" style="color:var(--blue);font-style:italic;font-weight:400">not selected / 미선택</span></span></div>
+        <textarea class="sm" id="hook-text" placeholder='"Have you ever felt completely alone even when surrounded by people?"'></textarea>
+      </div>
+      <div id="ex2"></div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 3 dynamic ─── -->
+  <div class="sec-card s3" id="sec3"></div>
+
+  <!-- ─── SECTION 4 ─── -->
+  <div class="sec-card s4">
+    <div class="sec-hdr">
+      <div class="sec-left">
+        <div class="sec-num">4</div>
+        <div class="sec-titles"><h2>Key Passage Analysis</h2><div class="ko">핵심 구절 분석</div></div>
+      </div>
+      <span class="setech-tag">텍스트 분석</span>
+      <div class="score-badge"><div><div class="pts">20</div><div class="pts-label">points<br>배점</div></div></div>
+    </div>
+    <div class="sec-body">
+      <div class="field"><div class="field-lbl"><span class="field-lbl-en">Meaningful sentence or short passage (1–2 sentences) / 인상적인 구절</span></div><textarea class="sm" placeholder='"Direct quote from the book..." (책에서 직접 인용)'></textarea></div>
+      <div class="field"><div class="field-lbl"><span class="field-lbl-en">Why is this part important? / 이 구절이 중요한 이유</span></div><textarea class="sm" placeholder="Explain the significance in English. (영어로 설명)"></textarea></div>
+      <div class="field">
+        <div style="font-size:12px;color:var(--ink2);font-weight:600;margin-bottom:6px;">Language focus — choose 1–2 / 언어적 특징 분석 (1~2개 선택)</div>
+        <div class="lang-grid">
+          <div class="lang-opt" onclick="toggleLang(this)"><div>Interesting vocabulary</div><span class="ko-s">흥미로운 어휘</span></div>
+          <div class="lang-opt" onclick="toggleLang(this)"><div>Metaphor or symbolism</div><span class="ko-s">비유·상징</span></div>
+          <div class="lang-opt" onclick="toggleLang(this)"><div>Tone or mood</div><span class="ko-s">어조·분위기</span></div>
+          <div class="lang-opt" onclick="toggleLang(this)"><div>Sentence structure</div><span class="ko-s">문장 구조</span></div>
+        </div>
+      </div>
+      <div class="field"><div class="field-lbl"><span class="field-lbl-en">Analysis of selected feature(s) / 분석 내용</span></div><textarea placeholder="Analyze in English. (영어로 작성)"></textarea></div>
+      <div class="field"><div class="field-lbl"><span class="field-lbl-en">Rewrite in your own words / 자신의 말로 바꿔 쓰기</span></div><textarea class="sm" placeholder="Paraphrase using your own language."></textarea></div>
+      <div id="ex4"></div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 5 ─── -->
+  <div class="sec-card s5">
+    <div class="sec-hdr">
+      <div class="sec-left">
+        <div class="sec-num">5</div>
+        <div class="sec-titles"><h2>Personal Interpretation</h2><div class="ko">나의 해석 &amp; 비판적 사고</div></div>
+      </div>
+      <span class="setech-tag">비판적 사고</span>
+      <div class="score-badge"><div><div class="pts">20</div><div class="pts-label">points<br>배점</div></div></div>
+    </div>
+    <div class="sec-body">
+      <div class="field"><div class="field-lbl"><span class="field-lbl-en">What message did you get? / 어떤 메시지를 받았나요?</span></div><textarea class="sm" placeholder="State the main theme or lesson. (주제나 교훈을 영어로)"></textarea></div>
+      <div class="field"><div class="field-lbl"><span class="field-lbl-en">Do you agree or disagree? Why? / 동의하나요? 이유는?</span></div><textarea class="sm" placeholder="Give your opinion and reason. (의견과 근거를 영어로)"></textarea></div>
+      <div class="field"><div class="field-lbl"><span class="field-lbl-en">How does this relate to real life? / 실생활과 어떻게 연결되나요?</span></div><textarea class="sm" placeholder="Connect to real-world situations."></textarea></div>
+      <div id="ex5"></div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 6 Script ─── -->
+  <div class="sec-card s6">
+    <div class="sec-hdr">
+      <div class="sec-left">
+        <div class="sec-num">6</div>
+        <div class="sec-titles"><h2>Speaking Script Draft</h2><div class="ko">최종 발표 스크립트 초안</div></div>
+      </div>
+      <span class="setech-tag">최종 산출물</span>
+    </div>
+    <div class="sec-body">
+      <div class="script-guide" id="script-guide"></div>
+      <div class="req-box">
+        조건 / Requirements: <strong>15문장 이상</strong> · <strong>각 문장 15단어 이상</strong><br>
+        Each sentence must have 15 or more words · 15+ sentences total
+      </div>
+      <div class="starter-panel">
+        <div class="starter-hdr"><div class="sh-title">Sentence Starters / 문장 시작 도우미</div><div class="sh-sub">클릭하면 스크립트 창에 바로 삽입됩니다 · Click any phrase to insert</div></div>
+        <div class="starter-tabs">
+          <button class="stab on" onclick="switchTab(this,'t1')">① Hook &amp; Intro</button>
+          <button class="stab" onclick="switchTab(this,'t2')">② Summary</button>
+          <button class="stab" onclick="switchTab(this,'t3')">③ Analysis</button>
+          <button class="stab" onclick="switchTab(this,'t4')">④ Opinion</button>
+          <button class="stab" onclick="switchTab(this,'t5')">⑤ Closing</button>
+        </div>
+        <div class="starter-content">
+          <div class="tsec on" id="t1">
+            <div class="slbl">Hook starters</div>
+            <div class="phrase-row"><span class="phrase" onclick="ins(this)">Have you ever…</span><span class="phrase" onclick="ins(this)">Imagine a world where…</span><span class="phrase" onclick="ins(this)">What would you do if…</span><span class="phrase" onclick="ins(this)">Did you know that…</span></div>
+            <div class="slbl">Book introduction</div>
+            <div class="phrase-row"><span class="phrase" onclick="ins(this)">Today, I would like to introduce…</span><span class="phrase" onclick="ins(this)">The book I chose is called…</span><span class="phrase" onclick="ins(this)">It was written by…</span><span class="phrase" onclick="ins(this)">I chose this book because…</span></div>
+          </div>
+          <div class="tsec" id="t2">
+            <div class="slbl">Story / content starters</div>
+            <div class="phrase-row"><span class="phrase" onclick="ins(this)">The story takes place in…</span><span class="phrase" onclick="ins(this)">The main character is…</span><span class="phrase" onclick="ins(this)">The book mainly discusses…</span><span class="phrase" onclick="ins(this)">The author argues that…</span></div>
+            <div class="slbl">Connectors</div>
+            <div class="phrase-row"><span class="phrase" onclick="ins(this)">First of all,</span><span class="phrase" onclick="ins(this)">However,</span><span class="phrase" onclick="ins(this)">As a result,</span><span class="phrase" onclick="ins(this)">Therefore,</span><span class="phrase" onclick="ins(this)">In addition,</span><span class="phrase" onclick="ins(this)">For example,</span><span class="phrase" onclick="ins(this)">In the end,</span></div>
+          </div>
+          <div class="tsec" id="t3">
+            <div class="slbl">Introducing the passage</div>
+            <div class="phrase-row"><span class="phrase" onclick="ins(this)">One sentence that stood out to me was…</span><span class="phrase" onclick="ins(this)">A key passage in the book says…</span><span class="phrase" onclick="ins(this)">The author writes, "…"</span></div>
+            <div class="slbl">Explaining</div>
+            <div class="phrase-row"><span class="phrase" onclick="ins(this)">This sentence shows that…</span><span class="phrase" onclick="ins(this)">I think this means…</span><span class="phrase" onclick="ins(this)">This part is important because…</span><span class="phrase" onclick="ins(this)">The author uses this to…</span></div>
+          </div>
+          <div class="tsec" id="t4">
+            <div class="slbl">Message &amp; opinion</div>
+            <div class="phrase-row"><span class="phrase" onclick="ins(this)">The main message of this book is…</span><span class="phrase" onclick="ins(this)">After reading this book, I learned that…</span><span class="phrase" onclick="ins(this)">I agree with this because…</span><span class="phrase" onclick="ins(this)">Personally, I think…</span></div>
+            <div class="slbl">Real-life connection</div>
+            <div class="phrase-row"><span class="phrase" onclick="ins(this)">This relates to real life because…</span><span class="phrase" onclick="ins(this)">In today's world,</span><span class="phrase" onclick="ins(this)">I have experienced something similar when…</span></div>
+          </div>
+          <div class="tsec" id="t5">
+            <div class="slbl">Closing &amp; recommendation</div>
+            <div class="phrase-row"><span class="phrase" onclick="ins(this)">In conclusion,</span><span class="phrase" onclick="ins(this)">To sum up,</span><span class="phrase" onclick="ins(this)">I strongly recommend this book to…</span><span class="phrase" onclick="ins(this)">This book would be perfect for…</span><span class="phrase" onclick="ins(this)">Thank you for listening.</span><span class="phrase" onclick="ins(this)">I hope my speech has inspired you to pick up this book.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-lbl"><span class="field-lbl-en">Write your complete script here / 전체 스크립트를 작성하세요</span></div>
+        <textarea style="min-height:240px;" id="script-area"
+          placeholder="각 문장은 15단어 이상이어야 해요. 15문장 이상 작성하세요.&#10;Each sentence must have 15 or more words. Write 15 sentences or more."
+          oninput="updateSent(this)"></textarea>
+        <div class="sent-row">
+          <span class="sent-lbl" id="sent-lbl">0 / 15 sentences · 짧은 문장: 0개</span>
+          <div class="sent-track"><div class="sent-fill" id="sent-fill"></div></div>
+          <span class="sent-check" id="sent-check"></span>
+        </div>
+        <div class="short-warn" id="short-warn"></div>
+      </div>
+      <div id="ex6"></div>
+    </div>
+  </div>
+
+  <!-- Action bar -->
+  <div class="action-bar">
+    <button class="btn" onclick="window.print()">🖨️ Print / 인쇄</button>
+    <button class="btn primary" onclick="alert('제출 기능은 웹사이트와 연결해주세요.\nConnect this button to your website submit handler.')">제출하기 / Submit ↗</button>
+  </div>
+
+</div>
+
+<script>
+// ── Set today's date
+(function(){
+  var d=new Date();
+  var s=d.getFullYear()+'-'+(''+(d.getMonth()+1)).padStart(2,'0')+'-'+(''+d.getDate()).padStart(2,'0');
+  document.getElementById('meta-date').value=s;
+})();
+
+var bType='fiction';
+var STEPS_F=['① Hook / 훅','② Book intro / 책 소개','③ Key idea / 주제','④ Personal opinion / 의견','⑤ Recommendation / 추천'];
+var STEPS_N=['① Hook / 훅','② Book &amp; topic / 책·주제 소개','③ Author credibility / 저자 신뢰성','④ Key idea / 핵심 주장','⑤ Opinion &amp; rec / 의견·추천'];
+
+/* ── Example data ── */
+var EX = {
+  fiction: {
+    book: 'The Giver',
+    s1: [
+      {q:'My target audience', a:'My classmates who enjoy thinking about society and rules', ko:'사회와 규칙에 대해 생각하는 것을 즐기는 우리 반 친구들', note:'단순히 "반 친구들"보다 관심사를 더해 구체적으로 설정했어요.'},
+      {q:'Purpose of my speech', a:'To persuade my audience that freedom of choice is essential in life', ko:'선택의 자유가 삶에서 얼마나 중요한지 청중을 설득하기 위해', note:'책의 핵심 주제(자유 vs 통제)와 연결된 목적을 설정한 예시예요.'},
+      {q:'Why this book fits my audience', a:'This book makes readers question rules they take for granted. My classmates are at an age when they start forming their own opinions, so this story will feel relevant and thought-provoking.', ko:'이 책은 독자들이 당연하게 여기는 규칙들을 다시 생각하게 만들어요. 우리 반 친구들은 스스로의 의견을 형성하기 시작하는 나이이기 때문에, 이 이야기는 공감 가고 생각할 거리를 줄 거예요.', note:'청중의 나이와 상황에 맞게 책이 적합한 이유를 구체적으로 연결했어요.'}
+    ],
+    s2: [
+      {q:'Hook type: Question / 질문', a:'"What if the government decided every detail of your life — your job, your family, even your feelings — and called it perfect?"', ko:'"만약 정부가 당신의 삶의 모든 것을 결정한다면 어떨까요? 직업, 가족, 심지어 감정까지 모두요. 그리고 그것을 완벽하다고 부른다면요?"', note:'청중이 즉시 상상하게 만드는 질문 형태의 훅이에요.'},
+      {q:'Alternative — Shocking Fact', a:'"In the world of this book, children are not allowed to choose their own friends, jobs, or even names."', ko:'"이 책의 세계에서 아이들은 자신의 친구, 직업, 심지어 이름조차 스스로 선택할 수 없습니다."', note:'충격적 사실 유형으로도 효과적으로 시작할 수 있어요.'}
+    ],
+    s4: [
+      {q:'Key passage', a:'"The worst part of holding the memories is not the pain. It\'s the loneliness of it."', ko:'"기억을 간직하는 것에서 가장 힘든 부분은 고통이 아니에요. 그것의 외로움이에요."'},
+      {q:'Why is this part important?', a:'This passage shows that carrying knowledge alone, without anyone to share it with, is deeply isolating. It reveals the emotional cost of being the Receiver of Memory in a society where no one else remembers the past.', ko:'이 구절은 혼자서 지식을 짊어지고, 함께 나눌 사람이 없다는 것이 얼마나 깊은 고독을 만드는지 보여줘요. 다른 누구도 과거를 기억하지 못하는 사회에서 기억 수용자가 되는 것의 감정적 대가를 드러내요.'},
+      {q:'Language focus: Tone or mood', a:'The tone is heavy and melancholic. The word "loneliness" creates a sense of emotional isolation. The structure "It\'s not A. It\'s B." creates a contrast that makes the second idea feel more powerful and surprising.', ko:'어조는 무겁고 우울해요. "외로움"이라는 단어는 감정적 고립감을 만들어요. "A가 아니에요. B예요."라는 구조는 대조를 만들어 두 번째 생각을 더 강렬하게 느끼게 해요.'},
+      {q:'Rewrite in your own words', a:'The hardest thing about having all the memories is not the suffering they bring, but the fact that you have to carry them completely alone, with no one who understands.', ko:'모든 기억을 가지고 있는 것에서 가장 힘든 점은 그것이 가져다주는 고통이 아니라, 이해해 주는 사람 없이 완전히 혼자서 그것들을 짊어져야 한다는 사실이에요.'}
+    ],
+    s5: [
+      {q:'What message did you get?', a:'The book\'s message is that true happiness cannot exist without freedom, pain, and the ability to make real choices. A society that removes all suffering also removes all meaning.', ko:'이 책의 메시지는, 진정한 행복은 자유, 고통, 그리고 진짜 선택을 할 수 있는 능력 없이는 존재할 수 없다는 것이에요. 모든 고통을 제거한 사회는 모든 의미도 함께 제거해버려요.'},
+      {q:'Do you agree or disagree?', a:'I agree with this message. If someone else makes all our decisions, we lose the ability to grow and learn from mistakes. Real life requires struggle — without it, we cannot truly appreciate happiness or understand ourselves.', ko:'저는 이 메시지에 동의해요. 다른 누군가가 우리의 모든 결정을 내린다면, 우리는 실수로부터 성장하고 배우는 능력을 잃게 돼요. 진짜 삶에는 어려움이 필요해요. 그것 없이는 행복을 감사히 여기거나 자신을 이해할 수 없어요.'},
+      {q:'How does this relate to real life?', a:'In today\'s world, some governments control information or limit citizens\' choices in the name of stability. This book makes me think about how important it is to protect individual freedom, even if it means accepting some disorder or uncertainty.', ko:'오늘날의 세계에서, 일부 정부들은 안정이라는 명목하에 정보를 통제하거나 시민의 선택을 제한해요. 이 책은 개인의 자유를 보호하는 것이 얼마나 중요한지 생각하게 만들어요.'}
+    ],
+    s6: [
+      {q:'① Hook', a:'What if the government decided every single detail of your life, including your job, your family, and even your deepest emotions, and called it perfect?', ko:'만약 정부가 당신의 삶의 모든 세부 사항을, 직업, 가족, 심지어 가장 깊은 감정까지, 결정하고 그것을 완벽하다고 부른다면 어떨까요?'},
+      {q:'② Book introduction', a:'Today, I would like to introduce a novel called The Giver, written by Lois Lowry, which explores a future society where all pain and choices have been completely eliminated.', ko:'오늘 저는 로이스 로리가 쓴 \'더 기버\'라는 소설을 소개하고 싶어요. 이 책은 모든 고통과 선택이 제거된 미래 사회를 탐구해요.'},
+      {q:'③ Story summary', a:'The story takes place in a seemingly perfect community where a group called the Elders controls every aspect of life, from jobs and families to the weather and daily emotions.', ko:'이야기는 장로라고 불리는 집단이 날씨에서 직업, 가족, 일상적인 감정까지 삶의 모든 측면을 통제하는 겉보기에 완벽한 공동체를 배경으로 해요.'},
+      {q:'④ Key event', a:'The main character, Jonas, is chosen as the new Receiver of Memory, which means he alone receives all the joyful and painful memories of the world that existed before Sameness.', ko:'주인공 조나스는 새로운 기억 수용자로 선택되고, 이는 그만이 동일성 이전 세계의 모든 기쁘고 고통스러운 기억을 받는다는 것을 의미해요.'},
+      {q:'⑤ Key passage', a:'One passage that deeply moved me was when the Giver told Jonas, "The worst part of holding the memories is not the pain — it\'s the loneliness of it."', ko:'저를 깊이 감동시킨 한 구절은 기버가 조나스에게 "기억을 간직하는 것에서 가장 힘든 부분은 고통이 아니에요. 그것의 외로움이에요."라고 말한 부분이에요.'},
+      {q:'⑥ Passage analysis', a:'This sentence shows that carrying knowledge without anyone to share it with is deeply isolating, and it reveals the true emotional burden of living in a society that was built entirely on silence.', ko:'이 문장은 함께 나눌 사람 없이 지식을 짊어지는 것이 얼마나 깊이 고립감을 주는지 보여주고, 침묵 위에 세워진 사회에서 사는 것의 진짜 감정적 부담을 드러내요.'},
+      {q:'⑦ Message', a:'The main message of this book is that true happiness cannot exist without the freedom to choose, to feel pain, and to experience the full range of what it means to be human.', ko:'이 책의 주요 메시지는 진정한 행복은 선택하고, 고통을 느끼고, 인간으로서의 전체 범위를 경험할 자유 없이는 존재할 수 없다는 것이에요.'},
+      {q:'⑧ Personal opinion', a:'I strongly agree with this message because if someone else controls all our decisions, we lose the ability to grow, learn from our mistakes, and truly understand who we are.', ko:'저는 이 메시지에 강하게 동의해요. 왜냐하면 다른 누군가가 우리의 모든 결정을 통제한다면, 우리는 성장하고, 실수로부터 배우고, 진정 우리가 누구인지 이해하는 능력을 잃게 되기 때문이에요.'},
+      {q:'⑨ Real-life connection', a:'In today\'s world, some governments restrict freedom of speech or limit access to information, and reading this book made me realize how precious and fragile individual freedom truly is.', ko:'오늘날의 세계에서 일부 정부는 언론의 자유를 제한하거나 정보 접근을 막는데, 이 책을 읽으면서 개인의 자유가 얼마나 소중하고 연약한 것인지 깨닫게 되었어요.'},
+      {q:'⑩ Recommendation', a:'I strongly recommend this book to anyone who has ever wondered whether comfort and safety are worth sacrificing your freedom, your memories, and your sense of self.', ko:'편안함과 안전이 자유, 기억, 그리고 자아감을 희생할 만한 가치가 있는지 의문을 가져본 사람이라면 누구에게나 이 책을 강력히 추천해요.'}
+    ]
+  },
+  nonfiction: {
+    book: 'Educated — Tara Westover',
+    s1: [
+      {q:'My target audience', a:'My classmates and anyone who has ever felt that their background limited what they could become in life', ko:'자신의 배경이 미래의 가능성을 제한한다고 느껴본 적 있는 우리 반 친구들과 모든 사람들', note:'비소설의 경우, 주제와 연결된 구체적인 감정이나 경험을 청중 설정에 포함하면 더 설득력 있어요.'},
+      {q:'Purpose of my speech', a:'To inspire my audience to believe that education and self-determination can transform a person\'s life, no matter what circumstances they were born into', ko:'어떤 환경에서 태어났든 교육과 자기 결정이 삶을 변화시킬 수 있다는 것을 청중에게 전하기 위해', note:'책의 핵심 주제(교육을 통한 자기 해방)와 직접 연결된 설득형 목적이에요.'},
+      {q:'Why this book fits my audience', a:'This memoir shows that education is not just about academic knowledge, but about discovering who you are and what you truly believe. For students like us who are still figuring out our own identities, this story is both inspiring and deeply relatable.', ko:'이 회고록은 교육이 단순히 학문적 지식에 관한 것이 아니라, 자신이 누구인지, 무엇을 진정으로 믿는지 발견하는 것임을 보여줘요. 아직 자신의 정체성을 찾아가고 있는 우리 같은 학생들에게 이 이야기는 영감을 주는 동시에 깊이 공감될 거예요.', note:'독자들이 책의 주제와 어떻게 연결될 수 있는지 감정적으로 설명했어요.'}
+    ],
+    s2: [
+      {q:'Hook type: Question / 질문', a:'"What if everything you were taught growing up turned out to be wrong — would you have the courage to find the truth on your own?"', ko:'"만약 어린 시절 배운 모든 것이 틀렸다는 것을 알게 된다면, 스스로 진실을 찾아갈 용기가 있을까요?"', note:'책의 핵심 갈등(가족의 가르침 vs 자신의 진실)을 한 문장의 질문으로 담았어요.'},
+      {q:'Alternative — Shocking Fact', a:'"Tara Westover had never set foot in a classroom until she was 17 years old, yet she went on to earn a PhD from Cambridge University."', ko:'"타라 웨스트오버는 17살이 될 때까지 단 한 번도 학교에 가본 적이 없었지만, 결국 케임브리지 대학교에서 박사 학위를 취득했습니다."', note:'사실을 그대로 제시하는 것만으로도 강렬한 훅이 돼요. 출처가 명확한 사실일수록 더 효과적이에요.'}
+    ],
+    s4: [
+      {q:'Key passage', a:'"I had a few rules I\'d grown up with. Never call the police. Never go to a hospital. And never, ever let the government know you exist."', ko:'"나는 어린 시절부터 지켜온 몇 가지 규칙이 있었다. 경찰에게 절대 전화하지 말 것. 절대 병원에 가지 말 것. 그리고 절대로, 절대로 정부가 당신의 존재를 알게 하지 말 것."'},
+      {q:'Why is this part important?', a:'This passage reveals the extreme isolation and survivalist beliefs that shaped Tara\'s childhood. It shows that the rules she grew up with were not just strict — they were designed to keep her family completely cut off from the outside world and any form of institutional help.', ko:'이 구절은 타라의 어린 시절을 형성한 극단적인 고립과 생존주의적 신념을 드러내요. 그녀가 자라면서 따랐던 규칙들이 단순히 엄격한 것이 아니라, 가족을 외부 세계와 모든 형태의 제도적 도움으로부터 완전히 차단하기 위해 설계된 것임을 보여줘요.'},
+      {q:'Language focus: Interesting vocabulary', a:'The repeated structure "Never… Never… And never, ever" creates a strong rhythm that sounds like a chant or a commandment. The phrase "let the government know you exist" is particularly striking because it implies that simply existing as a citizen is seen as dangerous, which is both unsettling and thought-provoking.', ko:'"절대… 절대… 그리고 절대로, 절대로"라는 반복 구조는 주문이나 계율처럼 들리는 강렬한 리듬을 만들어요. "정부가 당신의 존재를 알게 하지 말 것"이라는 표현은 시민으로서 단순히 존재하는 것이 위험하다고 여겨진다는 것을 암시하기 때문에 특히 충격적이고 생각할 거리를 줘요.'},
+      {q:'Rewrite in your own words', a:'Growing up, Tara followed strict family rules that forbade her from ever contacting the police, visiting a hospital, or doing anything that might reveal her family\'s existence to any government authority.', ko:'어린 시절 타라는 경찰에 연락하거나, 병원을 방문하거나, 가족의 존재를 어떤 정부 기관에도 드러낼 수 있는 일을 절대 하지 않도록 엄격한 가족 규칙을 따르며 자랐어요.'}
+    ],
+    s5: [
+      {q:'What message did you get?', a:'The main message of this memoir is that education is a form of liberation — it gives you the tools to question what you were told to believe and to construct your own identity based on knowledge and experience rather than fear.', ko:'이 회고록의 주요 메시지는 교육이 해방의 한 형태라는 것이에요. 교육은 믿으라고 배운 것들에 의문을 품고, 두려움이 아닌 지식과 경험에 기반하여 자신만의 정체성을 구축할 수 있는 도구를 제공해요.'},
+      {q:'Do you agree or disagree?', a:'I strongly agree with this message. Education does not just give us information — it teaches us how to think critically and independently. Without it, we may never realize how much of what we believe has been shaped by others rather than by our own reasoning and experience.', ko:'저는 이 메시지에 강하게 동의해요. 교육은 우리에게 정보를 줄 뿐만 아니라, 비판적이고 독립적으로 생각하는 방법을 가르쳐줘요. 교육 없이는 우리가 믿는 것들 중 얼마나 많은 부분이 자신의 추론과 경험이 아닌 타인에 의해 형성되었는지 결코 깨닫지 못할 수도 있어요.'},
+      {q:'How does this relate to real life?', a:'In many parts of the world, access to education is still unequal, and some children grow up in environments that actively discourage them from learning or thinking independently. This book reminds me that education is not something we should take for granted, because for many people it is a hard-won privilege rather than a basic right.', ko:'세계 여러 지역에서 교육 접근성은 여전히 불평등하고, 일부 아이들은 독립적으로 배우거나 생각하는 것을 적극적으로 방해하는 환경에서 자라요. 이 책은 교육이 당연한 것으로 여겨져서는 안 된다는 것을 상기시켜 줘요. 왜냐하면 많은 사람들에게 그것은 기본적인 권리가 아니라 어렵게 얻은 특권이기 때문이에요.'}
+    ],
+    s6: [
+      {q:'① Hook', a:'"What if everything you were taught growing up turned out to be wrong — would you have the courage to find the truth entirely on your own?"', ko:'"만약 어린 시절 배운 모든 것이 틀렸다는 것을 알게 된다면, 스스로 진실을 찾아갈 용기가 있을까요?"'},
+      {q:'② Book introduction', a:'Today, I would like to introduce a memoir called Educated, written by Tara Westover, which tells the extraordinary true story of a woman who taught herself to read and eventually earned a PhD from Cambridge University.', ko:'오늘 저는 타라 웨스트오버가 쓴 \'에듀케이티드\'라는 회고록을 소개하고 싶어요. 이 책은 스스로 글 읽기를 배우고 결국 케임브리지 대학교에서 박사 학위를 취득한 한 여성의 놀라운 실화를 담고 있어요.'},
+      {q:'③ Author background', a:'Tara Westover grew up in rural Idaho in an isolated survivalist family that distrusted the government, refused medical care, and kept their children out of school for most of their lives.', ko:'타라 웨스트오버는 정부를 불신하고, 의료 서비스를 거부하며, 아이들을 대부분의 삶 동안 학교에 보내지 않은 고립된 생존주의 가족 속에서 아이다호 시골에서 자랐어요.'},
+      {q:'④ Key idea', a:'One of the most powerful ideas in this book is that education gave Tara not just knowledge but the ability to see her own life from a distance, recognize the abuse she had endured, and finally choose who she wanted to become.', ko:'이 책에서 가장 강렬한 생각 중 하나는 교육이 타라에게 지식뿐만 아니라 자신의 삶을 거리를 두고 바라보고, 자신이 겪어온 학대를 인식하고, 마침내 자신이 어떤 사람이 되고 싶은지 선택할 수 있는 능력을 주었다는 것이에요.'},
+      {q:'⑤ Key passage', a:'A passage that struck me deeply was: "I had a few rules I\'d grown up with. Never call the police. Never go to a hospital. And never, ever let the government know you exist."', ko:'저를 깊이 충격에 빠뜨린 구절은 다음과 같아요: "나는 어린 시절부터 지켜온 몇 가지 규칙이 있었다. 경찰에게 절대 전화하지 말 것. 절대 병원에 가지 말 것. 그리고 절대로, 절대로 정부가 당신의 존재를 알게 하지 말 것."'},
+      {q:'⑥ Passage analysis', a:'This sentence reveals the extreme level of isolation Tara\'s family maintained, and it shows how deeply fear and distrust had shaped the rules of her childhood home in a way that cut her off from basic human rights.', ko:'이 문장은 타라의 가족이 유지한 극단적인 고립 수준을 드러내고, 두려움과 불신이 어린 시절 가정의 규칙을 어떻게 깊이 형성하여 그녀를 기본적인 인권으로부터 차단했는지를 보여줘요.'},
+      {q:'⑦ Message', a:'The main message of this memoir is that education is not simply about collecting facts — it is a process of self-discovery that allows you to question your beliefs, break free from harmful environments, and define yourself on your own terms.', ko:'이 회고록의 주요 메시지는 교육이 단순히 사실을 수집하는 것이 아니라, 자신의 믿음에 의문을 품고, 해로운 환경에서 벗어나고, 자신만의 방식으로 스스로를 정의할 수 있게 해주는 자기 발견의 과정이라는 것이에요.'},
+      {q:'⑧ Personal opinion', a:'I agree with this message wholeheartedly, because I believe that true education goes beyond textbooks and classrooms — it is the ability to think for yourself, recognize injustice, and have the courage to act on your own convictions.', ko:'저는 이 메시지에 전적으로 동의해요. 진정한 교육은 교과서와 교실을 넘어서는 것이라고 생각해요. 그것은 스스로 생각하고, 불의를 인식하고, 자신의 신념에 따라 행동할 용기를 갖는 능력이에요.'},
+      {q:'⑨ Real-life connection', a:'In many countries, millions of children are still denied access to quality education due to poverty, discrimination, or family circumstances, and this book is a powerful reminder that every child deserves the chance to learn and become who they truly want to be.', ko:'많은 나라에서 수백만 명의 아이들이 여전히 빈곤, 차별, 또는 가정 환경으로 인해 양질의 교육 기회를 박탈당하고 있으며, 이 책은 모든 아이가 배우고 진정으로 원하는 사람이 될 기회를 가질 자격이 있다는 것을 강렬하게 상기시켜 줘요.'},
+      {q:'⑩ Recommendation', a:'I strongly recommend this memoir to anyone who wants to be reminded of how powerful education can be, and to anyone who has ever felt trapped by the expectations of the people or environment around them.', ko:'교육이 얼마나 강력한지 다시 상기하고 싶은 사람, 그리고 주변 사람들이나 환경의 기대에 갇혀 있다고 느껴본 적 있는 사람이라면 누구에게나 이 회고록을 강력히 추천해요.'}
+    ]
+  }
+};
+
+function mkEx(rows, book, label) {
+  label = label || '예시 보기 / See example';
+  var inner = rows.map(function(r) {
+    return '<div class="ex-row">'
+      +'<div class="ex-q">'+r.q+'</div>'
+      +'<div class="ex-a">'+r.a+'</div>'
+      +'<div class="ex-a-ko">'+r.ko+'</div>'
+      +(r.note?'<div class="ex-note">'+r.note+'</div>':'')
+      +'</div>';
+  }).join('');
+  return '<div class="ex-wrap">'
+    +'<div class="ex-btn" onclick="toggleEx(this)">'
+    +'<span class="ex-btn-icon">📖</span>'
+    +'<span class="ex-btn-label">'+label+'</span>'
+    +'<span class="ex-btn-book">'+book+'</span>'
+    +'<span class="ex-btn-arrow">▾</span>'
+    +'</div>'
+    +'<div class="ex-panel">'+inner
+    +'<div class="ex-row green-row"><div class="ex-q green-q">참고 / Note</div>'
+    +'<div class="ex-a green-a">위 예시는 흐름을 보여주는 샘플이에요. 실제 작성 시에는 각 부분을 더 자세히 확장해서 15문장 이상, 각 문장 15단어 이상으로 완성하세요.</div></div>'
+    +'</div></div>';
+}
+
+function renderExamples() {
+  var d = EX[bType];
+  document.getElementById('ex1').innerHTML = mkEx(d.s1, d.book);
+  document.getElementById('ex2').innerHTML = mkEx(d.s2, d.book);
+  document.getElementById('ex4').innerHTML = mkEx(d.s4, d.book);
+  document.getElementById('ex5').innerHTML = mkEx(d.s5, d.book);
+  document.getElementById('ex6').innerHTML = mkEx(d.s6, d.book, '예시 스크립트 보기 / See example script');
+}
+
+var EX3_F='<div class="ex-wrap"><div class="ex-btn" onclick="toggleEx(this)"><span class="ex-btn-icon">📖</span><span class="ex-btn-label">예시 보기 / See example</span><span class="ex-btn-book">The Giver</span><span class="ex-btn-arrow">▾</span></div><div class="ex-panel"><div class="ex-row"><div class="ex-q">Setting</div><div class="ex-a">A seemingly perfect futuristic community where every aspect of life is controlled by a group called the Elders.</div><div class="ex-a-ko">장로라고 불리는 집단이 삶의 모든 측면을 통제하는, 겉보기에 완벽한 미래의 공동체.</div><div class="ex-note">구체적인 장소 이름이 없어도 배경의 특징을 묘사하면 돼요.</div></div><div class="ex-row"><div class="ex-q">Main character(s)</div><div class="ex-a">Jonas, a 12-year-old boy selected to become the Receiver of Memory; and the Giver, an old man who holds all the community\'s memories.</div><div class="ex-a-ko">기억 수용자로 선발된 12살 소년 조나스, 그리고 공동체의 모든 기억을 보유한 노인 기버.</div><div class="ex-note">주인공과 핵심 인물을 함께 소개하면 관계가 더 잘 전달돼요.</div></div><div class="ex-row"><div class="ex-q">Conflict</div><div class="ex-a">Jonas begins to receive memories of a world full of color, pain, love, and freedom — and realizes his community has given up everything that makes life meaningful.</div><div class="ex-a-ko">조나스는 색깔, 고통, 사랑, 자유로 가득한 세계의 기억을 받기 시작하고, 자신의 공동체가 삶을 의미 있게 만드는 모든 것을 포기했다는 것을 깨달아요.</div></div><div class="ex-row"><div class="ex-q">Key event</div><div class="ex-a">First, Jonas is assigned as the new Receiver of Memory. However, as he gains more memories, he discovers that babies labeled "released" are actually killed. As a result, he decides to escape with a baby named Gabriel.</div><div class="ex-a-ko">먼저, 조나스는 새로운 기억 수용자로 배정돼요. 하지만 더 많은 기억을 받으면서 "방면"된 아기들이 실제로 죽임을 당한다는 것을 알게 돼요. 결과적으로, 그는 가브리엘이라는 아기와 함께 탈출하기로 결심해요.</div><div class="ex-note">연결어(First, However, As a result)를 사용해 사건을 논리적으로 연결했어요.</div></div><div class="ex-row"><div class="ex-q">Ending (no full spoiler)</div><div class="ex-a">Jonas escapes into the unknown world beyond the community, carrying all the memories he received. The ending is open to interpretation — hope and uncertainty coexist.</div><div class="ex-a-ko">조나스는 받은 모든 기억을 안고 공동체 너머의 미지의 세계로 탈출해요. 결말은 해석에 열려 있어요. 희망과 불확실성이 공존해요.</div></div></div></div>';
+
+var EX3_N='<div class="ex-wrap"><div class="ex-btn" onclick="toggleEx(this)"><span class="ex-btn-icon">📖</span><span class="ex-btn-label">예시 보기 / See example</span><span class="ex-btn-book">Educated — Tara Westover</span><span class="ex-btn-arrow">▾</span></div><div class="ex-panel"><div class="ex-row"><div class="ex-q">Main topic</div><div class="ex-a">How one woman\'s pursuit of education became an act of survival and self-liberation from an isolated, abusive family environment.</div><div class="ex-a-ko">한 여성의 교육 추구가 고립되고 학대적인 가족 환경으로부터의 생존과 자기 해방의 행위가 된 과정.</div><div class="ex-note">비소설의 주제는 사실적이고 구체적으로 서술해요. 막연하게 "교육에 관한 책"보다 구체적인 맥락을 담았어요.</div></div><div class="ex-row"><div class="ex-q">Central argument</div><div class="ex-a">Westover argues that education is not just a collection of facts, but the process through which a person learns to think independently, question inherited beliefs, and ultimately define their own identity.</div><div class="ex-a-ko">웨스트오버는 교육이 단순히 사실의 집합이 아니라, 독립적으로 생각하고, 물려받은 믿음에 의문을 품고, 궁극적으로 자신만의 정체성을 정의하는 방법을 배우는 과정이라고 주장해요.</div><div class="ex-note">저자의 핵심 주장을 "저자는 ~라고 주장한다"는 형식으로 명확히 제시했어요.</div></div><div class="ex-row"><div class="ex-q">Key idea that stood out</div><div class="ex-a">The most striking idea is that the same person who was never allowed to attend school eventually gained the intellectual tools to recognize and name the trauma she had experienced, which shows how education can reshape a person\'s entire understanding of their own life.</div><div class="ex-a-ko">가장 인상적인 생각은 학교에 전혀 다니지 못했던 사람이 결국 자신이 경험한 트라우마를 인식하고 이름 붙일 지적 도구를 얻게 되었다는 것이에요. 이것은 교육이 어떻게 한 사람의 삶 전체에 대한 이해를 재형성할 수 있는지 보여줘요.</div><div class="ex-note">단순한 내용 요약이 아니라, 책을 읽으며 가장 인상 깊었던 아이디어가 왜 중요한지를 설명했어요.</div></div><div class="ex-row"><div class="ex-q">Author\'s background</div><div class="ex-a">Tara Westover is an American author born in 1986 in rural Idaho. She grew up in a strict survivalist family, was never formally schooled, and taught herself enough to pass the ACT exam and enter Brigham Young University, later earning a PhD from Cambridge University.</div><div class="ex-a-ko">타라 웨스트오버는 1986년 아이다호 시골에서 태어난 미국 작가예요. 엄격한 생존주의 가족 안에서 자라 정식 교육을 받은 적 없이 스스로 공부해 ACT 시험에 합격하고 브리검 영 대학교에 입학했으며, 이후 케임브리지 대학교에서 박사 학위를 취득했어요.</div><div class="ex-note">저자의 국적, 경력, 배경을 사실 중심으로 간결하게 소개했어요.</div></div><div class="ex-row"><div class="ex-q">Why is this author credible?</div><div class="ex-a">Westover is not writing from secondhand research — this memoir is based entirely on her own lived experience. Her academic achievements at Cambridge and her firsthand account of surviving and escaping a deeply isolating upbringing give her a unique and undeniable authority on the subject of self-education and resilience.</div><div class="ex-a-ko">웨스트오버는 간접 연구를 바탕으로 쓰는 것이 아니에요. 이 회고록은 전적으로 그녀 자신의 삶의 경험에 기반해 있어요. 케임브리지에서의 학문적 성취와 깊이 고립된 성장 환경에서 살아남고 탈출한 직접적인 경험은 자기 교육과 회복력이라는 주제에 대해 그녀에게 독보적인 권위를 부여해요.</div><div class="ex-note">비소설에서 저자 신뢰성은 매우 중요한 요소예요. 직접 경험, 학문적 자격, 또는 전문 연구 중 어떤 것이 신뢰성의 근거인지 구체적으로 밝혀요.</div></div><div class="ex-row"><div class="ex-q">How does the author\'s background connect to the book?</div><div class="ex-a">Because Westover personally lived through the events she describes, the book carries an emotional authenticity that no amount of outside research could replicate. Her journey from complete isolation to earning a PhD is itself the central argument of the book — that education has the power to transform a life.</div><div class="ex-a-ko">웨스트오버가 직접 묘사하는 사건들을 경험했기 때문에, 이 책은 어떤 외부 연구로도 재현할 수 없는 감정적 진정성을 담고 있어요. 완전한 고립에서 박사 학위 취득까지의 그녀의 여정 자체가 책의 핵심 주장이에요. 즉, 교육은 삶을 변화시킬 힘을 가지고 있다는 것이죠.</div><div class="ex-note">저자의 배경과 책의 메시지를 한 단락 안에서 자연스럽게 연결했어요.</div></div></div></div>';
+
+function buildF(){
+  return '<div class="sec-hdr"><div class="sec-left"><div class="sec-num">3</div><div class="sec-titles"><h2>Story Structure</h2><div class="ko">줄거리 구조화</div></div></div><span class="setech-tag">논리적 담화 구성</span><div class="score-badge"><div><div class="pts">20</div><div class="pts-label">points<br>배점</div></div></div></div>'
+  +'<div class="sec-body">'
+  +'<div class="g2"><div class="field"><div class="field-lbl"><span class="field-lbl-en">Setting (Where / When) / 배경</span></div><input type="text" placeholder="Time and place / 시간과 장소"></div>'
+  +'<div class="field"><div class="field-lbl"><span class="field-lbl-en">Main character(s) / 주요 등장인물</span></div><input type="text" placeholder="Protagonist / 주인공 및 핵심 인물"></div></div>'
+  +'<div class="field"><div class="field-lbl"><span class="field-lbl-en">Conflict / 갈등</span></div><input type="text" placeholder="Main problem / 핵심 갈등"></div>'
+  +'<div class="field"><div class="field-lbl"><span class="field-lbl-en">Key event (1–2 sentences) / 핵심 사건</span></div><textarea class="sm" placeholder="Most important turning point / 가장 중요한 전환점"></textarea></div>'
+  +'<div class="field"><div class="field-lbl"><span class="field-lbl-en">Ending / 결말</span></div><div class="field-hint">No spoilers, or partial reveal · 스포일러 없이 or 일부만 공개!</div><textarea class="sm" placeholder="How does it end? / 결말 또는 암시"></textarea></div>'
+  + EX3_F +'</div>';
+}
+
+function buildN(){
+  return '<div class="sec-hdr"><div class="sec-left"><div class="sec-num">3</div><div class="sec-titles"><h2>Book &amp; Author Overview</h2><div class="ko">책 내용 &amp; 저자 소개</div></div></div><span class="setech-tag">논리적 담화 구성</span><div class="score-badge"><div><div class="pts">20</div><div class="pts-label">points<br>배점</div></div></div></div>'
+  +'<div class="sec-body">'
+  +'<div class="field"><div class="field-lbl"><span class="field-lbl-en">Main topic or subject / 책의 주요 주제</span></div><input type="text" placeholder="What is this book about?"></div>'
+  +'<div class="field"><div class="field-lbl"><span class="field-lbl-en">Central argument or message / 핵심 주장</span></div><textarea class="sm" placeholder="What is the author trying to say?"></textarea></div>'
+  +'<div class="field"><div class="field-lbl"><span class="field-lbl-en">Key idea that stood out / 인상 깊었던 아이디어</span></div><textarea class="sm" placeholder="1–2 ideas / 가장 흥미로웠던 내용"></textarea></div>'
+  +'<hr style="border:none;border-top:1px solid var(--border);margin:14px 0;">'
+  +'<div style="font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:12px;">About the Author / 저자 소개</div>'
+  +'<div class="g2"><div class="field"><div class="field-lbl"><span class="field-lbl-en">Author\'s background / 저자의 배경</span></div><textarea class="sm" placeholder="Nationality, career, expertise..."></textarea></div>'
+  +'<div class="field"><div class="field-lbl"><span class="field-lbl-en">Why is this author credible? / 신뢰할 수 있는 이유</span></div><textarea class="sm" placeholder="Experience, research..."></textarea></div></div>'
+  +'<div class="field"><div class="field-lbl"><span class="field-lbl-en">How does the author\'s background connect to the book? / 저자 배경과 책의 연결</span></div><textarea class="sm" placeholder="Explain in English."></textarea></div>'
+  + EX3_N +'</div>';
+}
+
+function renderSec3(){
+  var el=document.getElementById('sec3');
+  el.innerHTML=bType==='fiction'?buildF():buildN();
+  el.querySelectorAll('input,textarea').forEach(function(i){i.addEventListener('input',updProg);});
+}
+function renderGuide(){
+  var steps=bType==='fiction'?STEPS_F:STEPS_N;
+  document.getElementById('script-guide').innerHTML=steps.map(function(s){return'<span class="guide-tag">'+s+'</span>';}).join('');
+}
+function setType(t,btn){
+  bType=t;
+  document.querySelectorAll('.type-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  renderSec3(); renderGuide(); renderExamples(); updProg();
+}
+function setHook(el,type){
+  document.querySelectorAll('.hook-pill').forEach(function(p){p.classList.remove('active');});
+  el.classList.add('active');
+  document.getElementById('hook-lbl').textContent=type;
+}
+function toggleLang(el){
+  var s=document.querySelectorAll('.lang-opt.on').length;
+  if(!el.classList.contains('on')&&s>=2)return;
+  el.classList.toggle('on'); updProg();
+}
+function toggleEx(btn){
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+function switchTab(btn,id){
+  document.querySelectorAll('.stab').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('.tsec').forEach(function(s){s.classList.remove('on');});
+  btn.classList.add('on'); document.getElementById(id).classList.add('on');
+}
+function ins(el){
+  var ta=document.getElementById('script-area');
+  var t=el.textContent; var v=ta.value;
+  if(v.length>0&&v[v.length-1]!=='\n'&&v[v.length-1]!==' ')v+=' ';
+  ta.value=v+t+' '; ta.focus();
+  el.classList.add('flash');
+  setTimeout(function(){el.classList.remove('flash');},900);
+  updateSent(ta);
+}
+
+function parseSentences(text){
+  var raw=text.trim(); if(!raw)return[];
+  var parts=raw.match(/[^.!?]+[.!?]+/g)||[];
+  return parts.map(function(s){return s.trim();}).filter(function(s){return s.length>0;});
+}
+function wordCount(s){return s.trim().split(/\s+/).filter(function(w){return w.length>0;}).length;}
+
+function updateSent(el){
+  var sents=parseSentences(el.value);
+  var total=sents.length;
+  var short=sents.filter(function(s){return wordCount(s)<15;});
+  var pct=Math.min(total/15*100,100);
+  var fill=document.getElementById('sent-fill');
+  fill.style.width=pct+'%';
+  var allOk=total>=15&&short.length===0;
+  fill.className='sent-fill'+(allOk?' ok':'');
+  var lbl=document.getElementById('sent-lbl');
+  lbl.textContent=total+' / 15 sentences · 짧은 문장: '+short.length+'개';
+  lbl.className='sent-lbl'+(allOk?' ok':total>=15&&short.length>0?' warn':'');
+  document.getElementById('sent-check').textContent=allOk?'✓':'';
+  var warn=document.getElementById('short-warn');
+  if(short.length>0){warn.style.display='block';warn.textContent='15단어 미만 문장 '+short.length+'개가 있어요. 각 문장을 더 길고 구체적으로 작성해주세요.';}
+  else{warn.style.display='none';}
+  updProg();
+}
+
+function secFilled(n){
+  try{
+    if(n===1) return[...document.querySelectorAll('.s1 input[type=text]')].some(function(i){return i.value.trim();});
+    if(n===2) return document.getElementById('hook-text').value.trim().length>0;
+    if(n===3) return[...document.querySelectorAll('#sec3 input,#sec3 textarea')].some(function(i){return i.value.trim();});
+    if(n===4) return[...document.querySelectorAll('.s4 textarea')].some(function(t){return t.value.trim();});
+    if(n===5) return[...document.querySelectorAll('.s5 textarea')].some(function(t){return t.value.trim();});
+    if(n===6){var s=parseSentences(document.getElementById('script-area').value);return s.length>=15&&s.filter(function(x){return wordCount(x)<15;}).length===0;}
+  }catch(e){}
+  return false;
+}
+
+function updProg(){
+  var filled=0;
+  for(var i=1;i<=6;i++){if(secFilled(i))filled++;}
+  document.getElementById('prog-txt').textContent=filled+' / 6 sections';
+  document.getElementById('prog-fill').style.width=(filled/6*100)+'%';
+}
+
+document.querySelectorAll('input,textarea').forEach(function(el){el.addEventListener('input',updProg);});
+renderSec3(); renderGuide(); renderExamples(); updProg();
+</script>
+</body>
+</html>
